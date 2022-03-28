@@ -15,7 +15,7 @@ function App() {
 
 
 const Formulario = () => {
-
+  var [message, setMessage] =  useState('');
   var [Age, setAge] = useState('');
   var [Sex, setSex] = useState('');
   var [ChestPainType, setChestPT] = useState('');
@@ -27,19 +27,25 @@ const Formulario = () => {
   }
 
   async function Submit(){
-    let response = await fetch('http://127.0.0.1:5000/predict',
+    let response = await fetch('https://heart-api.herokuapp.com/predict',
     {method: 'POST',
     headers: {"Content-Type": "application/json"}, 
     body:JSON.stringify({"Age":parseInt(Age), "Sex": Sex, "ChestPainType":ChestPainType, "Cholesterol": parseInt(Cholesterol), "FastingBS":parseInt(FastingBS), "RestingBP":parseInt(RestingBP)}),});
     let data = await response.json();
     if (data.prediction[1] == '1'){
-      alert("You are maybe suffering a heart attack, please go to the closest hosptial as soon as possible");
+      setMessage("You are maybe suffering a heart attack, please go to the closest hospital as soon as possible.");
+    }
+    else{
+      setMessage('You look healthy, anyway checkout with your head doctor please.')
     }
   }
   return(
     <>
+    
     <secction>
+      
       <form  onSubmit={handleSubmit}>
+           
               <div className='item'>
                 <label htmlFor = 'age'> Age</label>
                 <input type='text' id= 'age' name= 'age'  value = {Age} onChange={(e)=>setAge(e.target.value)}></input>
@@ -80,6 +86,9 @@ const Formulario = () => {
             </select>
       </div>
       <button className = 'btn' onClick={() => Submit()}>Submit</button>
+      <h3>
+              {message}
+            </h3>
     </secction>
     </>
   )
