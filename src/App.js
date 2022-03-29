@@ -8,6 +8,11 @@ function App() {
       <header className="App-header">
       Heart Attack Predictor
       </header>
+      <h4>This is a AI-powered applicatioon to predict heart attacks
+        please do not take any clinical procedure or medication base on 
+        this platform you should always consult with your doctor, 
+        this application is made for experimental purposes only
+      </h4>
       <Formulario></Formulario>
     </div>
   );
@@ -85,10 +90,13 @@ const Formulario = () => {
               <option value = '0' >FastingBS less than 120 mg/dl</option>
             </select>
       </div>
-      <button className = 'btn' onClick={() => Submit()}>Submit</button>
-      <h3>
+      <div className = 'item'>
+        <h3>
               {message}
-            </h3>
+        </h3>
+      </div>
+      <button className = 'btn' onClick={() => Submit()}>Submit</button>
+      
     </secction>
     </>
   )
